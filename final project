@@ -1,0 +1,93 @@
+#include <iostream>
+#include <cmath>
+#include <limits> // Required for numeric_limits
+
+using namespace std;
+
+// Function to perform addition
+double add(double num1, double num2) {
+    return num1 + num2;
+}
+
+// Function to perform subtraction
+double subtract(double num1, double num2) {
+    return num1 - num2;
+}
+
+// Function to perform multiplication
+double multiply(double num1, double num2) {
+    return num1 * num2;
+}
+
+// Function to perform division
+double divide(double num1, double num2) {
+    if (num2 == 0) {
+        cout << "Error: Division by zero!" << endl;
+        return numeric_limits<double>::quiet_NaN(); // Return NaN (Not a Number)
+    }
+    return num1 / num2;
+}
+
+// Function to perform square root
+double squareRoot(double num) {
+    if (num < 0) {
+        cout << "Error: Cannot calculate square root of a negative number!" << endl;
+        return numeric_limits<double>::quiet_NaN(); // Return NaN
+    }
+    return sqrt(num);
+}
+
+// Function to perform power
+double power(double base, double exponent) {
+    return pow(base, exponent);
+}
+
+int main() {
+    char operation;
+    double num1, num2, result;
+
+    cout << "Simple Calculator" << endl;
+    cout << "Enter first number: ";
+    cin >> num1;
+
+    cout << "Enter an operator (+, -, *, /, s for square root, p for power): ";
+    cin >> operation;
+
+    // Handle square root operation separately
+    if (operation == 's') {
+        result = squareRoot(num1);
+        if (!isnan(result)) {
+            cout << "Square root of " << num1 << " = " << result << endl;
+        }
+    } else {
+        cout << "Enter second number: ";
+        cin >> num2;
+
+        switch (operation) {
+            case '+':
+                result = add(num1, num2);
+                break;
+            case '-':
+                result = subtract(num1, num2);
+                break;
+            case '*':
+                result = multiply(num1, num2);
+                break;
+            case '/':
+                result = divide(num1, num2);
+                break;
+            case 'p':
+                result = power(num1, num2);
+                break;
+            default:
+                cout << "Error: Invalid operator!" << endl;
+                return 1; // Indicate an error
+        }
+
+        if (!isnan(result)) {
+            cout << num1 << " " << operation << " " << num2 << " = " << result << endl;
+        }
+    }
+
+    return 0;
+}
